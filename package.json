@@ -1,6 +1,6 @@
 {
   "name": "@n8n-dev/n8n-nodes-zapper",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Zapper blockchain portfolio tracker and DeFi dashboard for managing assets across 60+ chains with real-time prices",
   "license": "MIT",
   "homepage": "https://n8n-code.github.io/n8n-dev/#/n8n-nodes-zapper",
