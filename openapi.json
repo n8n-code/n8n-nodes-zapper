@@ -1,0 +1,3743 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Zapper API",
+    "version": "1.0.0",
+    "description": "Enterprise grade onchain data across 60+ chains — token prices, NFTs, portfolios, transactions, and more.",
+    "x-guidance": "All paid endpoints are at POST /x402/{tool}. Send a JSON body with the required fields for the tool. Payment is required via x402 (X-Payment header, Base USDC) or MPP (Authorization: Payment header, Tempo). Available tools: token-price, search, nft-token-metadata, nft-collection-metadata, portfolio-totals, token-balances, defi-balances, nft-balances, historical-token-price, transaction-details, transaction-history, token-holders, token-ranking, nft-ranking, account-identity, general-swap-feed, token-activity-feed."
+  },
+  "x-discovery": {
+    "ownershipProofs": []
+  },
+  "paths": {
+    "/x402/token-price": {
+      "post": {
+        "operationId": "token-price",
+        "summary": "Get real-time token price and market cap",
+        "tags": [
+          "Zapper Tools"
+        ],
+        "x-payment-info": {
+          "pricingMode": "fixed",
+          "price": "0.001125",
+          "protocols": [
+            "x402",
+            "mpp"
+          ]
+        },
+        "extensions": {
+          "bazaar": {
+            "info": {
+              "input": {
+                "type": "http",
+                "method": "POST",
+                "bodyType": "json",
+                "body": {
+                  "address": "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913",
+                  "chainId": 8453
+                }
+              }
+            },
+            "schema": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "type": "object",
+              "properties": {
+                "input": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "const": "http"
+                    },
+                    "method": {
+                      "type": "string",
+                      "enum": [
+                        "POST",
+                        "PUT",
+                        "PATCH"
+                      ]
+                    },
+                    "bodyType": {
+                      "type": "string",
+                      "enum": [
+                        "json",
+                        "form-data",
+                        "text"
+                      ]
+                    },
+                    "body": {
+                      "type": "object",
+                      "properties": {
+                        "address": {
+                          "type": "string",
+                          "description": "The 0x contract address"
+                        },
+                        "chainId": {
+                          "type": "integer",
+                          "description": "The Chain ID (e.g. 8453 for Base)"
+                        },
+                        "currency": {
+                          "type": "string",
+                          "description": "Currency for price data (default: USD)",
+                          "default": "USD"
+                        }
+                      },
+                      "required": [
+                        "address",
+                        "chainId"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "bodyType",
+                    "body",
+                    "method"
+                  ],
+                  "additionalProperties": false
+                },
+                "output": {
+                  "type": "object",
+                  "properties": {
+                    "example": {
+                      "data": {
+                        "fungibleTokenV2": {
+                          "address": "string",
+                          "symbol": "string",
+                          "name": "string",
+                          "decimals": "integer",
+                          "imageUrlV2": "string",
+                          "priceData": {
+                            "marketCap": "number",
+                            "price": "number",
+                            "priceChange5m": "number",
+                            "priceChange1h": "number",
+                            "priceChange24h": "number",
+                            "volume24h": "number",
+                            "totalGasTokenLiquidity": "number",
+                            "totalLiquidity": "number"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "required": [
+                "input"
+              ]
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "address": {
+                    "type": "string",
+                    "description": "The 0x contract address"
+                  },
+                  "chainId": {
+                    "type": "integer",
+                    "description": "The Chain ID (e.g. 8453 for Base)"
+                  },
+                  "currency": {
+                    "type": "string",
+                    "description": "Currency for price data (default: USD)",
+                    "default": "USD"
+                  }
+                },
+                "required": [
+                  "address",
+                  "chainId"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          },
+          "402": {
+            "description": "Payment Required"
+          }
+        }
+      }
+    },
+    "/x402/search": {
+      "post": {
+        "operationId": "search",
+        "summary": "Search for ERC20 tokens, NFTs, Users, Apps, or Gas Tokens.",
+        "tags": [
+          "Zapper Tools"
+        ],
+        "x-payment-info": {
+          "pricingMode": "fixed",
+          "price": "0.004500",
+          "protocols": [
+            "x402",
+            "mpp"
+          ]
+        },
+        "extensions": {
+          "bazaar": {
+            "info": {
+              "input": {
+                "type": "http",
+                "method": "POST",
+                "bodyType": "json",
+                "body": {
+                  "search": "USDC",
+                  "categories": [
+                    "ERC20_TOKEN"
+                  ]
+                }
+              }
+            },
+            "schema": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "type": "object",
+              "properties": {
+                "input": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "const": "http"
+                    },
+                    "method": {
+                      "type": "string",
+                      "enum": [
+                        "POST",
+                        "PUT",
+                        "PATCH"
+                      ]
+                    },
+                    "bodyType": {
+                      "type": "string",
+                      "enum": [
+                        "json",
+                        "form-data",
+                        "text"
+                      ]
+                    },
+                    "body": {
+                      "type": "object",
+                      "properties": {
+                        "search": {
+                          "type": "string",
+                          "description": "Search query (e.g., \"Ape\", \"eth\", \"Vitalik\"). Searches for token SYMBOLS, NFT collection names, ENS, and BaseNames."
+                        },
+                        "categories": {
+                          "type": "array",
+                          "description": "Filter results by category. Use multiple categories for broader results (e.g., [\"GAS_TOKEN\", \"ERC20_TOKEN\"] for all token types). Defaults to ERC20_TOKEN only.",
+                          "default": [
+                            "ERC20_TOKEN"
+                          ],
+                          "items": {
+                            "type": "string",
+                            "enum": [
+                              "ERC20_TOKEN",
+                              "GAS_TOKEN",
+                              "NFT_COLLECTION",
+                              "USER",
+                              "APP"
+                            ]
+                          }
+                        },
+                        "maxResultsPerCategory": {
+                          "type": "integer",
+                          "description": "Limit results per category",
+                          "default": 5
+                        }
+                      },
+                      "required": [
+                        "search"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "bodyType",
+                    "body",
+                    "method"
+                  ],
+                  "additionalProperties": false
+                },
+                "output": {
+                  "type": "object",
+                  "properties": {
+                    "example": {
+                      "data": {
+                        "searchV2": {
+                          "results": {
+                            "type": "array",
+                            "description": "Polymorphic list of results. Fields depend on the category.",
+                            "items": {
+                              "type": "object",
+                              "description": "A single search result (App, User, Token, or NFT)",
+                              "properties": {
+                                "category": {
+                                  "type": "string"
+                                },
+                                "name": {
+                                  "type": "string"
+                                },
+                                "symbol": {
+                                  "type": "string"
+                                },
+                                "address": {
+                                  "type": "string"
+                                },
+                                "imageUrl": {
+                                  "type": "string"
+                                },
+                                "decimals": {
+                                  "type": "integer"
+                                },
+                                "erc20": {
+                                  "type": "object",
+                                  "properties": {
+                                    "decimals": {
+                                      "type": "integer"
+                                    },
+                                    "networkV2": {
+                                      "type": "object",
+                                      "properties": {
+                                        "name": {
+                                          "type": "string"
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                "gasToken": {
+                                  "type": "object",
+                                  "properties": {
+                                    "networkV2": {
+                                      "type": "object",
+                                      "properties": {
+                                        "name": {
+                                          "type": "string"
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                "appId": {
+                                  "type": "string"
+                                },
+                                "app": {
+                                  "type": "object",
+                                  "properties": {
+                                    "displayName": {
+                                      "type": "string"
+                                    },
+                                    "description": {
+                                      "type": "string"
+                                    },
+                                    "url": {
+                                      "type": "string"
+                                    }
+                                  }
+                                },
+                                "collection": {
+                                  "type": "object",
+                                  "properties": {
+                                    "displayName": {
+                                      "type": "string"
+                                    },
+                                    "floorPrice": {
+                                      "type": "object",
+                                      "properties": {
+                                        "valueUsd": {
+                                          "type": "number"
+                                        }
+                                      }
+                                    },
+                                    "medias": {
+                                      "type": "object",
+                                      "properties": {
+                                        "logo": {
+                                          "type": "object",
+                                          "properties": {
+                                            "medium": {
+                                              "type": "string"
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                "account": {
+                                  "type": "object",
+                                  "properties": {
+                                    "displayName": {
+                                      "type": "object",
+                                      "properties": {
+                                        "value": {
+                                          "type": "string"
+                                        }
+                                      }
+                                    },
+                                    "farcasterProfile": {
+                                      "type": "object",
+                                      "properties": {
+                                        "username": {
+                                          "type": "string"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "required": [
+                "input"
+              ]
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "search": {
+                    "type": "string",
+                    "description": "Search query (e.g., \"Ape\", \"eth\", \"Vitalik\"). Searches for token SYMBOLS, NFT collection names, ENS, and BaseNames."
+                  },
+                  "categories": {
+                    "type": "array",
+                    "description": "Filter results by category. Use multiple categories for broader results (e.g., [\"GAS_TOKEN\", \"ERC20_TOKEN\"] for all token types). Defaults to ERC20_TOKEN only.",
+                    "default": [
+                      "ERC20_TOKEN"
+                    ],
+                    "items": {
+                      "type": "string",
+                      "enum": [
+                        "ERC20_TOKEN",
+                        "GAS_TOKEN",
+                        "NFT_COLLECTION",
+                        "USER",
+                        "APP"
+                      ]
+                    }
+                  },
+                  "maxResultsPerCategory": {
+                    "type": "integer",
+                    "description": "Limit results per category",
+                    "default": 5
+                  }
+                },
+                "required": [
+                  "search"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          },
+          "402": {
+            "description": "Payment Required"
+          }
+        }
+      }
+    },
+    "/x402/nft-token-metadata": {
+      "post": {
+        "operationId": "nft-token-metadata",
+        "summary": "Get detailed metadata, traits, media, and holder info for a specific NFT",
+        "tags": [
+          "Zapper Tools"
+        ],
+        "x-payment-info": {
+          "pricingMode": "fixed",
+          "price": "0.001125",
+          "protocols": [
+            "x402",
+            "mpp"
+          ]
+        },
+        "extensions": {
+          "bazaar": {
+            "info": {
+              "input": {
+                "type": "http",
+                "method": "POST",
+                "bodyType": "json",
+                "body": {
+                  "collectionAddress": "0xa449b4f43d9a33fcdcf397b9cc7aa909012709fd",
+                  "chainId": 8453,
+                  "tokenId": "1"
+                }
+              }
+            },
+            "schema": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "type": "object",
+              "properties": {
+                "input": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "const": "http"
+                    },
+                    "method": {
+                      "type": "string",
+                      "enum": [
+                        "POST",
+                        "PUT",
+                        "PATCH"
+                      ]
+                    },
+                    "bodyType": {
+                      "type": "string",
+                      "enum": [
+                        "json",
+                        "form-data",
+                        "text"
+                      ]
+                    },
+                    "body": {
+                      "type": "object",
+                      "properties": {
+                        "collectionAddress": {
+                          "type": "string",
+                          "description": "The 0x contract address of the collection"
+                        },
+                        "chainId": {
+                          "type": "integer",
+                          "description": "The Chain ID (e.g. 1 for Mainnet, 8453 for Base)"
+                        },
+                        "tokenId": {
+                          "type": "string",
+                          "description": "The specific token ID to fetch metadata for"
+                        }
+                      },
+                      "required": [
+                        "collectionAddress",
+                        "chainId",
+                        "tokenId"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "bodyType",
+                    "body",
+                    "method"
+                  ],
+                  "additionalProperties": false
+                },
+                "output": {
+                  "type": "object",
+                  "properties": {
+                    "example": {
+                      "data": {
+                        "nftTokenV2": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "description": {
+                              "type": "string"
+                            },
+                            "tokenId": {
+                              "type": "string"
+                            },
+                            "collection": {
+                              "type": "object",
+                              "properties": {
+                                "name": {
+                                  "type": "string"
+                                },
+                                "symbol": {
+                                  "type": "string"
+                                },
+                                "floorPrice": {
+                                  "type": "object",
+                                  "properties": {
+                                    "valueUsd": {
+                                      "type": "number"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "mediasV3": {
+                              "type": "object",
+                              "properties": {
+                                "images": {
+                                  "type": "object"
+                                },
+                                "animations": {
+                                  "type": "object"
+                                },
+                                "audios": {
+                                  "type": "object"
+                                }
+                              }
+                            },
+                            "traits": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "attributeName": {
+                                    "type": "string"
+                                  },
+                                  "attributeValue": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            },
+                            "holders": {
+                              "type": "object"
+                            },
+                            "estimatedValue": {
+                              "type": "object",
+                              "properties": {
+                                "valueUsd": {
+                                  "type": "number"
+                                }
+                              }
+                            },
+                            "lastSale": {
+                              "type": "object",
+                              "properties": {
+                                "valueUsd": {
+                                  "type": "number"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "required": [
+                "input"
+              ]
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "collectionAddress": {
+                    "type": "string",
+                    "description": "The 0x contract address of the collection"
+                  },
+                  "chainId": {
+                    "type": "integer",
+                    "description": "The Chain ID (e.g. 1 for Mainnet, 8453 for Base)"
+                  },
+                  "tokenId": {
+                    "type": "string",
+                    "description": "The specific token ID to fetch metadata for"
+                  }
+                },
+                "required": [
+                  "collectionAddress",
+                  "chainId",
+                  "tokenId"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          },
+          "402": {
+            "description": "Payment Required"
+          }
+        }
+      }
+    },
+    "/x402/nft-collection-metadata": {
+      "post": {
+        "operationId": "nft-collection-metadata",
+        "summary": "Get NFT collection data including market stats, holders, events, and a sample of NFTs.",
+        "tags": [
+          "Zapper Tools"
+        ],
+        "x-payment-info": {
+          "pricingMode": "fixed",
+          "price": "0.001125",
+          "protocols": [
+            "x402",
+            "mpp"
+          ]
+        },
+        "extensions": {
+          "bazaar": {
+            "info": {
+              "input": {
+                "type": "http",
+                "method": "POST",
+                "bodyType": "json",
+                "body": {
+                  "collections": [
+                    {
+                      "address": "0xa449b4f43d9a33fcdcf397b9cc7aa909012709fd",
+                      "chainId": 8453
+                    }
+                  ]
+                }
+              }
+            },
+            "schema": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "type": "object",
+              "properties": {
+                "input": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "const": "http"
+                    },
+                    "method": {
+                      "type": "string",
+                      "enum": [
+                        "POST",
+                        "PUT",
+                        "PATCH"
+                      ]
+                    },
+                    "bodyType": {
+                      "type": "string",
+                      "enum": [
+                        "json",
+                        "form-data",
+                        "text"
+                      ]
+                    },
+                    "body": {
+                      "type": "object",
+                      "properties": {
+                        "collections": {
+                          "type": "array",
+                          "description": "Array of collection inputs containing address and chainId",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "address": {
+                                "type": "string",
+                                "description": "Collection contract address"
+                              },
+                              "chainId": {
+                                "type": "integer",
+                                "description": "Network Chain ID"
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "required": [
+                        "collections"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "bodyType",
+                    "body",
+                    "method"
+                  ],
+                  "additionalProperties": false
+                },
+                "output": {
+                  "type": "object",
+                  "properties": {
+                    "example": {
+                      "data": {
+                        "nftCollectionsV2": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "address": {
+                                "type": "string"
+                              },
+                              "network": {
+                                "type": "string"
+                              },
+                              "floorPrice": {
+                                "type": "object",
+                                "properties": {
+                                  "valueUsd": {
+                                    "type": "number"
+                                  }
+                                }
+                              },
+                              "marketCap": {
+                                "type": "number"
+                              },
+                              "holdersCount": {
+                                "type": "integer"
+                              },
+                              "nfts": {
+                                "type": "object",
+                                "description": "Paginated list of NFTs"
+                              },
+                              "events": {
+                                "type": "object",
+                                "description": "Recent collection events"
+                              },
+                              "holders": {
+                                "type": "object",
+                                "description": "Top holders"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "required": [
+                "input"
+              ]
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "collections": {
+                    "type": "array",
+                    "description": "Array of collection inputs containing address and chainId",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "address": {
+                          "type": "string",
+                          "description": "Collection contract address"
+                        },
+                        "chainId": {
+                          "type": "integer",
+                          "description": "Network Chain ID"
+                        }
+                      }
+                    }
+                  }
+                },
+                "required": [
+                  "collections"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          },
+          "402": {
+            "description": "Payment Required"
+          }
+        }
+      }
+    },
+    "/x402/portfolio-totals": {
+      "post": {
+        "operationId": "portfolio-totals",
+        "summary": "Get aggregated portfolio totals (Tokens, Apps, NFTs) broken down by network for a single address, or a list of addresses.",
+        "tags": [
+          "Zapper Tools"
+        ],
+        "x-payment-info": {
+          "pricingMode": "fixed",
+          "price": "0.001875",
+          "protocols": [
+            "x402",
+            "mpp"
+          ]
+        },
+        "extensions": {
+          "bazaar": {
+            "info": {
+              "input": {
+                "type": "http",
+                "method": "POST",
+                "bodyType": "json",
+                "body": {
+                  "addresses": [
+                    "0xd8da6bf26964af9d7eed9e03e53415d37aa96045"
+                  ]
+                }
+              }
+            },
+            "schema": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "type": "object",
+              "properties": {
+                "input": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "const": "http"
+                    },
+                    "method": {
+                      "type": "string",
+                      "enum": [
+                        "POST",
+                        "PUT",
+                        "PATCH"
+                      ]
+                    },
+                    "bodyType": {
+                      "type": "string",
+                      "enum": [
+                        "json",
+                        "form-data",
+                        "text"
+                      ]
+                    },
+                    "body": {
+                      "type": "object",
+                      "properties": {
+                        "addresses": {
+                          "type": "array",
+                          "description": "Array of 0x wallet addresses to aggregate",
+                          "items": {
+                            "type": "string",
+                            "description": "A 0x wallet address"
+                          }
+                        },
+                        "chainIds": {
+                          "type": "array",
+                          "description": "Optional list of Chain IDs to filter by (e.g. [1, 8453])",
+                          "items": {
+                            "type": "integer"
+                          }
+                        }
+                      },
+                      "required": [
+                        "addresses"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "bodyType",
+                    "body",
+                    "method"
+                  ],
+                  "additionalProperties": false
+                },
+                "output": {
+                  "type": "object",
+                  "properties": {
+                    "example": {
+                      "data": {
+                        "portfolioV2": {
+                          "type": "object",
+                          "properties": {
+                            "tokenBalances": {
+                              "type": "object",
+                              "properties": {
+                                "totalBalanceUSD": {
+                                  "type": "number"
+                                },
+                                "byNetwork": {
+                                  "type": "object",
+                                  "description": "Paginated list of balances by network"
+                                }
+                              }
+                            },
+                            "appBalances": {
+                              "type": "object",
+                              "properties": {
+                                "totalBalanceUSD": {
+                                  "type": "number"
+                                },
+                                "byNetwork": {
+                                  "type": "object"
+                                }
+                              }
+                            },
+                            "nftBalances": {
+                              "type": "object",
+                              "properties": {
+                                "totalBalanceUSD": {
+                                  "type": "number"
+                                },
+                                "byNetwork": {
+                                  "type": "object"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "required": [
+                "input"
+              ]
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "addresses": {
+                    "type": "array",
+                    "description": "Array of 0x wallet addresses to aggregate",
+                    "items": {
+                      "type": "string",
+                      "description": "A 0x wallet address"
+                    }
+                  },
+                  "chainIds": {
+                    "type": "array",
+                    "description": "Optional list of Chain IDs to filter by (e.g. [1, 8453])",
+                    "items": {
+                      "type": "integer"
+                    }
+                  }
+                },
+                "required": [
+                  "addresses"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          },
+          "402": {
+            "description": "Payment Required"
+          }
+        }
+      }
+    },
+    "/x402/token-balances": {
+      "post": {
+        "operationId": "token-balances",
+        "summary": "Get detailed token balances for a single address, or a list of addresses, optionally filtering by chain.",
+        "tags": [
+          "Zapper Tools"
+        ],
+        "x-payment-info": {
+          "pricingMode": "fixed",
+          "price": "0.001125",
+          "protocols": [
+            "x402",
+            "mpp"
+          ]
+        },
+        "extensions": {
+          "bazaar": {
+            "info": {
+              "input": {
+                "type": "http",
+                "method": "POST",
+                "bodyType": "json",
+                "body": {
+                  "addresses": [
+                    "0xd8da6bf26964af9d7eed9e03e53415d37aa96045"
+                  ],
+                  "first": 10
+                }
+              }
+            },
+            "schema": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "type": "object",
+              "properties": {
+                "input": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "const": "http"
+                    },
+                    "method": {
+                      "type": "string",
+                      "enum": [
+                        "POST",
+                        "PUT",
+                        "PATCH"
+                      ]
+                    },
+                    "bodyType": {
+                      "type": "string",
+                      "enum": [
+                        "json",
+                        "form-data",
+                        "text"
+                      ]
+                    },
+                    "body": {
+                      "type": "object",
+                      "properties": {
+                        "addresses": {
+                          "type": "array",
+                          "description": "Array of 0x wallet addresses to aggregate",
+                          "items": {
+                            "type": "string",
+                            "description": "A 0x wallet address"
+                          }
+                        },
+                        "first": {
+                          "type": "integer",
+                          "default": 10,
+                          "description": "Number of tokens to return (max 20)"
+                        },
+                        "chainIds": {
+                          "type": "array",
+                          "description": "Optional list of Chain IDs to filter by (e.g. [1, 8453])",
+                          "items": {
+                            "type": "integer"
+                          }
+                        }
+                      },
+                      "required": [
+                        "addresses"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "bodyType",
+                    "body",
+                    "method"
+                  ],
+                  "additionalProperties": false
+                },
+                "output": {
+                  "type": "object",
+                  "properties": {
+                    "example": {
+                      "data": {
+                        "portfolioV2": {
+                          "type": "object",
+                          "properties": {
+                            "tokenBalances": {
+                              "type": "object",
+                              "properties": {
+                                "totalBalanceUSD": {
+                                  "type": "number"
+                                },
+                                "byToken": {
+                                  "type": "object",
+                                  "properties": {
+                                    "totalCount": {
+                                      "type": "integer"
+                                    },
+                                    "edges": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "object",
+                                        "properties": {
+                                          "node": {
+                                            "type": "object",
+                                            "properties": {
+                                              "name": {
+                                                "type": "string"
+                                              },
+                                              "symbol": {
+                                                "type": "string"
+                                              },
+                                              "price": {
+                                                "type": "number"
+                                              },
+                                              "balance": {
+                                                "type": "number"
+                                              },
+                                              "balanceUSD": {
+                                                "type": "number"
+                                              },
+                                              "network": {
+                                                "type": "object",
+                                                "properties": {
+                                                  "name": {
+                                                    "type": "string"
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "required": [
+                "input"
+              ]
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "addresses": {
+                    "type": "array",
+                    "description": "Array of 0x wallet addresses to aggregate",
+                    "items": {
+                      "type": "string",
+                      "description": "A 0x wallet address"
+                    }
+                  },
+                  "first": {
+                    "type": "integer",
+                    "default": 10,
+                    "description": "Number of tokens to return (max 20)"
+                  },
+                  "chainIds": {
+                    "type": "array",
+                    "description": "Optional list of Chain IDs to filter by (e.g. [1, 8453])",
+                    "items": {
+                      "type": "integer"
+                    }
+                  }
+                },
+                "required": [
+                  "addresses"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          },
+          "402": {
+            "description": "Payment Required"
+          }
+        }
+      }
+    },
+    "/x402/defi-balances": {
+      "post": {
+        "operationId": "defi-balances",
+        "summary": "Get DeFi balances (Liquidity Pools, Yield Farming, Lending, etc.) for a single address, or a list of addresses.",
+        "tags": [
+          "Zapper Tools"
+        ],
+        "x-payment-info": {
+          "pricingMode": "fixed",
+          "price": "0.001125",
+          "protocols": [
+            "x402",
+            "mpp"
+          ]
+        },
+        "extensions": {
+          "bazaar": {
+            "info": {
+              "input": {
+                "type": "http",
+                "method": "POST",
+                "bodyType": "json",
+                "body": {
+                  "addresses": [
+                    "0xd8da6bf26964af9d7eed9e03e53415d37aa96045"
+                  ],
+                  "first": 10
+                }
+              }
+            },
+            "schema": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "type": "object",
+              "properties": {
+                "input": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "const": "http"
+                    },
+                    "method": {
+                      "type": "string",
+                      "enum": [
+                        "POST",
+                        "PUT",
+                        "PATCH"
+                      ]
+                    },
+                    "bodyType": {
+                      "type": "string",
+                      "enum": [
+                        "json",
+                        "form-data",
+                        "text"
+                      ]
+                    },
+                    "body": {
+                      "type": "object",
+                      "properties": {
+                        "addresses": {
+                          "type": "array",
+                          "description": "Array of 0x wallet addresses to aggregate",
+                          "items": {
+                            "type": "string",
+                            "description": "A 0x wallet address"
+                          }
+                        },
+                        "first": {
+                          "type": "integer",
+                          "default": 10,
+                          "description": "Number of DeFi positions to return (max 50)"
+                        },
+                        "chainIds": {
+                          "type": "array",
+                          "description": "Optional list of Chain IDs to filter by",
+                          "items": {
+                            "type": "integer"
+                          }
+                        }
+                      },
+                      "required": [
+                        "addresses"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "bodyType",
+                    "body",
+                    "method"
+                  ],
+                  "additionalProperties": false
+                },
+                "output": {
+                  "type": "object",
+                  "properties": {
+                    "example": {
+                      "data": {
+                        "portfolioV2": {
+                          "type": "object",
+                          "properties": {
+                            "appBalances": {
+                              "type": "object",
+                              "properties": {
+                                "totalBalanceUSD": {
+                                  "type": "number"
+                                },
+                                "byApp": {
+                                  "type": "object",
+                                  "properties": {
+                                    "totalCount": {
+                                      "type": "integer"
+                                    },
+                                    "edges": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "object",
+                                        "properties": {
+                                          "node": {
+                                            "type": "object",
+                                            "properties": {
+                                              "balanceUSD": {
+                                                "type": "number"
+                                              },
+                                              "app": {
+                                                "type": "object",
+                                                "properties": {
+                                                  "displayName": {
+                                                    "type": "string"
+                                                  },
+                                                  "category": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                      "name": {
+                                                        "type": "string"
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              },
+                                              "positionBalances": {
+                                                "type": "object",
+                                                "description": "Detailed positions (Liquidity Pools, Lending, Farms, etc.)"
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "required": [
+                "input"
+              ]
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "addresses": {
+                    "type": "array",
+                    "description": "Array of 0x wallet addresses to aggregate",
+                    "items": {
+                      "type": "string",
+                      "description": "A 0x wallet address"
+                    }
+                  },
+                  "first": {
+                    "type": "integer",
+                    "default": 10,
+                    "description": "Number of DeFi positions to return (max 50)"
+                  },
+                  "chainIds": {
+                    "type": "array",
+                    "description": "Optional list of Chain IDs to filter by",
+                    "items": {
+                      "type": "integer"
+                    }
+                  }
+                },
+                "required": [
+                  "addresses"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          },
+          "402": {
+            "description": "Payment Required"
+          }
+        }
+      }
+    },
+    "/x402/nft-balances": {
+      "post": {
+        "operationId": "nft-balances",
+        "summary": "Get individual NFT balances and estimated values for a single address, or a list of addresses.",
+        "tags": [
+          "Zapper Tools"
+        ],
+        "x-payment-info": {
+          "pricingMode": "fixed",
+          "price": "0.001125",
+          "protocols": [
+            "x402",
+            "mpp"
+          ]
+        },
+        "extensions": {
+          "bazaar": {
+            "info": {
+              "input": {
+                "type": "http",
+                "method": "POST",
+                "bodyType": "json",
+                "body": {
+                  "addresses": [
+                    "0xd8da6bf26964af9d7eed9e03e53415d37aa96045"
+                  ],
+                  "first": 10
+                }
+              }
+            },
+            "schema": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "type": "object",
+              "properties": {
+                "input": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "const": "http"
+                    },
+                    "method": {
+                      "type": "string",
+                      "enum": [
+                        "POST",
+                        "PUT",
+                        "PATCH"
+                      ]
+                    },
+                    "bodyType": {
+                      "type": "string",
+                      "enum": [
+                        "json",
+                        "form-data",
+                        "text"
+                      ]
+                    },
+                    "body": {
+                      "type": "object",
+                      "properties": {
+                        "addresses": {
+                          "type": "array",
+                          "description": "Array of 0x wallet addresses to scan",
+                          "items": {
+                            "type": "string",
+                            "description": "A 0x wallet address"
+                          }
+                        },
+                        "first": {
+                          "type": "integer",
+                          "default": 10,
+                          "description": "Number of NFTs to return"
+                        },
+                        "sortBy": {
+                          "type": "string",
+                          "default": "USD_WORTH",
+                          "description": "Sort order for results (e.g. \"USD_WORTH\", \"NETWORK\", \"COLLECTION\")"
+                        },
+                        "chainIds": {
+                          "type": "array",
+                          "description": "Optional list of Chain IDs to filter by",
+                          "items": {
+                            "type": "integer"
+                          }
+                        }
+                      },
+                      "required": [
+                        "addresses"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "bodyType",
+                    "body",
+                    "method"
+                  ],
+                  "additionalProperties": false
+                },
+                "output": {
+                  "type": "object",
+                  "properties": {
+                    "example": {
+                      "data": {
+                        "portfolioV2": {
+                          "type": "object",
+                          "properties": {
+                            "nftBalances": {
+                              "type": "object",
+                              "properties": {
+                                "totalBalanceUSD": {
+                                  "type": "number"
+                                },
+                                "totalTokensOwned": {
+                                  "type": "integer"
+                                },
+                                "byToken": {
+                                  "type": "object",
+                                  "properties": {
+                                    "edges": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "object",
+                                        "properties": {
+                                          "node": {
+                                            "type": "object",
+                                            "properties": {
+                                              "token": {
+                                                "type": "object",
+                                                "properties": {
+                                                  "tokenId": {
+                                                    "type": "string"
+                                                  },
+                                                  "name": {
+                                                    "type": "string"
+                                                  },
+                                                  "estimatedValue": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                      "valueUsd": {
+                                                        "type": "number"
+                                                      }
+                                                    }
+                                                  },
+                                                  "collection": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                      "name": {
+                                                        "type": "string"
+                                                      },
+                                                      "address": {
+                                                        "type": "string"
+                                                      }
+                                                    }
+                                                  },
+                                                  "mediasV3": {
+                                                    "type": "object"
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "required": [
+                "input"
+              ]
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "addresses": {
+                    "type": "array",
+                    "description": "Array of 0x wallet addresses to scan",
+                    "items": {
+                      "type": "string",
+                      "description": "A 0x wallet address"
+                    }
+                  },
+                  "first": {
+                    "type": "integer",
+                    "default": 10,
+                    "description": "Number of NFTs to return"
+                  },
+                  "sortBy": {
+                    "type": "string",
+                    "default": "USD_WORTH",
+                    "description": "Sort order for results (e.g. \"USD_WORTH\", \"NETWORK\", \"COLLECTION\")"
+                  },
+                  "chainIds": {
+                    "type": "array",
+                    "description": "Optional list of Chain IDs to filter by",
+                    "items": {
+                      "type": "integer"
+                    }
+                  }
+                },
+                "required": [
+                  "addresses"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          },
+          "402": {
+            "description": "Payment Required"
+          }
+        }
+      }
+    },
+    "/x402/historical-token-price": {
+      "post": {
+        "operationId": "historical-token-price",
+        "summary": "Get the price of a token at a specific point in time.",
+        "tags": [
+          "Zapper Tools"
+        ],
+        "x-payment-info": {
+          "pricingMode": "fixed",
+          "price": "0.001125",
+          "protocols": [
+            "x402",
+            "mpp"
+          ]
+        },
+        "extensions": {
+          "bazaar": {
+            "info": {
+              "input": {
+                "type": "http",
+                "method": "POST",
+                "bodyType": "json",
+                "body": {
+                  "address": "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913",
+                  "chainId": 8453,
+                  "timestamp": 1700000000000
+                }
+              }
+            },
+            "schema": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "type": "object",
+              "properties": {
+                "input": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "const": "http"
+                    },
+                    "method": {
+                      "type": "string",
+                      "enum": [
+                        "POST",
+                        "PUT",
+                        "PATCH"
+                      ]
+                    },
+                    "bodyType": {
+                      "type": "string",
+                      "enum": [
+                        "json",
+                        "form-data",
+                        "text"
+                      ]
+                    },
+                    "body": {
+                      "type": "object",
+                      "properties": {
+                        "address": {
+                          "type": "string",
+                          "description": "The 0x contract address of the token"
+                        },
+                        "chainId": {
+                          "type": "integer",
+                          "description": "The Chain ID (e.g. 8453 for Base)"
+                        },
+                        "timestamp": {
+                          "type": "integer",
+                          "description": "The unix timestamp (in milliseconds) for the historical lookup"
+                        },
+                        "currency": {
+                          "type": "string",
+                          "default": "USD",
+                          "description": "Currency for price data (default: USD)"
+                        }
+                      },
+                      "required": [
+                        "address",
+                        "chainId",
+                        "timestamp"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "bodyType",
+                    "body",
+                    "method"
+                  ],
+                  "additionalProperties": false
+                },
+                "output": {
+                  "type": "object",
+                  "properties": {
+                    "example": {
+                      "data": {
+                        "fungibleTokenV2": {
+                          "type": "object",
+                          "properties": {
+                            "address": {
+                              "type": "string"
+                            },
+                            "symbol": {
+                              "type": "string"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "decimals": {
+                              "type": "integer"
+                            },
+                            "imageUrlV2": {
+                              "type": "string"
+                            },
+                            "priceData": {
+                              "type": "object",
+                              "properties": {
+                                "historicalPrice": {
+                                  "type": "object",
+                                  "properties": {
+                                    "timestamp": {
+                                      "type": "number"
+                                    },
+                                    "price": {
+                                      "type": "number"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "required": [
+                "input"
+              ]
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "address": {
+                    "type": "string",
+                    "description": "The 0x contract address of the token"
+                  },
+                  "chainId": {
+                    "type": "integer",
+                    "description": "The Chain ID (e.g. 8453 for Base)"
+                  },
+                  "timestamp": {
+                    "type": "integer",
+                    "description": "The unix timestamp (in milliseconds) for the historical lookup"
+                  },
+                  "currency": {
+                    "type": "string",
+                    "default": "USD",
+                    "description": "Currency for price data (default: USD)"
+                  }
+                },
+                "required": [
+                  "address",
+                  "chainId",
+                  "timestamp"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          },
+          "402": {
+            "description": "Payment Required"
+          }
+        }
+      }
+    },
+    "/x402/transaction-details": {
+      "post": {
+        "operationId": "transaction-details",
+        "summary": "Get human-readable interpretation, metadata, and balance changes for a specific transaction.",
+        "tags": [
+          "Zapper Tools"
+        ],
+        "x-payment-info": {
+          "pricingMode": "fixed",
+          "price": "0.001125",
+          "protocols": [
+            "x402",
+            "mpp"
+          ]
+        },
+        "extensions": {
+          "bazaar": {
+            "info": {
+              "input": {
+                "type": "http",
+                "method": "POST",
+                "bodyType": "json",
+                "body": {
+                  "hash": "0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060",
+                  "chainId": 1
+                }
+              }
+            },
+            "schema": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "type": "object",
+              "properties": {
+                "input": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "const": "http"
+                    },
+                    "method": {
+                      "type": "string",
+                      "enum": [
+                        "POST",
+                        "PUT",
+                        "PATCH"
+                      ]
+                    },
+                    "bodyType": {
+                      "type": "string",
+                      "enum": [
+                        "json",
+                        "form-data",
+                        "text"
+                      ]
+                    },
+                    "body": {
+                      "type": "object",
+                      "properties": {
+                        "hash": {
+                          "type": "string",
+                          "description": "The transaction hash (0x...)"
+                        },
+                        "chainId": {
+                          "type": "integer",
+                          "description": "The Chain ID where the transaction occurred"
+                        }
+                      },
+                      "required": [
+                        "hash",
+                        "chainId"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "bodyType",
+                    "body",
+                    "method"
+                  ],
+                  "additionalProperties": false
+                },
+                "output": {
+                  "type": "object",
+                  "properties": {
+                    "example": {
+                      "data": {
+                        "transactionDetailsV2": {
+                          "type": "object",
+                          "properties": {
+                            "transaction": {
+                              "type": "object",
+                              "properties": {
+                                "hash": {
+                                  "type": "string"
+                                },
+                                "timestamp": {
+                                  "type": "string"
+                                },
+                                "fromUser": {
+                                  "type": "object",
+                                  "properties": {
+                                    "address": {
+                                      "type": "string"
+                                    }
+                                  }
+                                },
+                                "toUser": {
+                                  "type": "object",
+                                  "properties": {
+                                    "address": {
+                                      "type": "string"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "app": {
+                              "type": "object",
+                              "properties": {
+                                "displayName": {
+                                  "type": "string"
+                                },
+                                "imgUrl": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "interpretation": {
+                              "type": "object",
+                              "properties": {
+                                "processedDescription": {
+                                  "type": "string"
+                                },
+                                "descriptionDisplayItems": {
+                                  "type": "array",
+                                  "description": "Polymorphic list of items (Tokens, NFTs, Actors) involved in the interpretation"
+                                }
+                              }
+                            },
+                            "deltas": {
+                              "type": "object",
+                              "description": "Balance changes (deltas) caused by this transaction"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "required": [
+                "input"
+              ]
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "hash": {
+                    "type": "string",
+                    "description": "The transaction hash (0x...)"
+                  },
+                  "chainId": {
+                    "type": "integer",
+                    "description": "The Chain ID where the transaction occurred"
+                  }
+                },
+                "required": [
+                  "hash",
+                  "chainId"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          },
+          "402": {
+            "description": "Payment Required"
+          }
+        }
+      }
+    },
+    "/x402/transaction-history": {
+      "post": {
+        "operationId": "transaction-history",
+        "summary": "Get transaction history with interpretations and metadata for a single address, or a list of addresses.",
+        "tags": [
+          "Zapper Tools"
+        ],
+        "x-payment-info": {
+          "pricingMode": "fixed",
+          "price": "0.001125",
+          "protocols": [
+            "x402",
+            "mpp"
+          ]
+        },
+        "extensions": {
+          "bazaar": {
+            "info": {
+              "input": {
+                "type": "http",
+                "method": "POST",
+                "bodyType": "json",
+                "body": {
+                  "subjects": [
+                    "0xd8da6bf26964af9d7eed9e03e53415d37aa96045"
+                  ],
+                  "first": 10
+                }
+              }
+            },
+            "schema": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "type": "object",
+              "properties": {
+                "input": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "const": "http"
+                    },
+                    "method": {
+                      "type": "string",
+                      "enum": [
+                        "POST",
+                        "PUT",
+                        "PATCH"
+                      ]
+                    },
+                    "bodyType": {
+                      "type": "string",
+                      "enum": [
+                        "json",
+                        "form-data",
+                        "text"
+                      ]
+                    },
+                    "body": {
+                      "type": "object",
+                      "properties": {
+                        "subjects": {
+                          "type": "array",
+                          "description": "Array of 0x wallet addresses to get transaction history for",
+                          "items": {
+                            "type": "string",
+                            "description": "A 0x wallet address"
+                          }
+                        },
+                        "perspective": {
+                          "type": "string",
+                          "default": "All",
+                          "description": "Transaction perspective filter (e.g. \"All\", \"Signer\", \"Receiver\")"
+                        },
+                        "first": {
+                          "type": "integer",
+                          "default": 10,
+                          "description": "Number of transactions to return"
+                        },
+                        "after": {
+                          "type": "string",
+                          "description": "Cursor for pagination"
+                        },
+                        "chainIds": {
+                          "type": "array",
+                          "description": "Optional list of Chain IDs to filter by",
+                          "items": {
+                            "type": "integer"
+                          }
+                        }
+                      },
+                      "required": [
+                        "subjects"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "bodyType",
+                    "body",
+                    "method"
+                  ],
+                  "additionalProperties": false
+                },
+                "output": {
+                  "type": "object",
+                  "properties": {
+                    "example": {
+                      "data": {
+                        "transactionHistoryV2": {
+                          "type": "object",
+                          "properties": {
+                            "edges": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "node": {
+                                    "type": "object",
+                                    "properties": {
+                                      "methodSignature": {
+                                        "type": "string"
+                                      },
+                                      "methodSighash": {
+                                        "type": "string"
+                                      },
+                                      "transaction": {
+                                        "type": "object",
+                                        "properties": {
+                                          "blockNumber": {
+                                            "type": "integer"
+                                          },
+                                          "hash": {
+                                            "type": "string"
+                                          },
+                                          "network": {
+                                            "type": "string"
+                                          },
+                                          "timestamp": {
+                                            "type": "string"
+                                          },
+                                          "fromUser": {
+                                            "type": "object"
+                                          },
+                                          "toUser": {
+                                            "type": "object"
+                                          }
+                                        }
+                                      },
+                                      "interpretation": {
+                                        "type": "object",
+                                        "properties": {
+                                          "processedDescription": {
+                                            "type": "string"
+                                          },
+                                          "description": {
+                                            "type": "string"
+                                          },
+                                          "descriptionDisplayItems": {
+                                            "type": "array"
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "pageInfo": {
+                              "type": "object",
+                              "properties": {
+                                "endCursor": {
+                                  "type": "string"
+                                },
+                                "hasNextPage": {
+                                  "type": "boolean"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "required": [
+                "input"
+              ]
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "subjects": {
+                    "type": "array",
+                    "description": "Array of 0x wallet addresses to get transaction history for",
+                    "items": {
+                      "type": "string",
+                      "description": "A 0x wallet address"
+                    }
+                  },
+                  "perspective": {
+                    "type": "string",
+                    "default": "All",
+                    "description": "Transaction perspective filter (e.g. \"All\", \"Signer\", \"Receiver\")"
+                  },
+                  "first": {
+                    "type": "integer",
+                    "default": 10,
+                    "description": "Number of transactions to return"
+                  },
+                  "after": {
+                    "type": "string",
+                    "description": "Cursor for pagination"
+                  },
+                  "chainIds": {
+                    "type": "array",
+                    "description": "Optional list of Chain IDs to filter by",
+                    "items": {
+                      "type": "integer"
+                    }
+                  }
+                },
+                "required": [
+                  "subjects"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          },
+          "402": {
+            "description": "Payment Required"
+          }
+        }
+      }
+    },
+    "/x402/token-holders": {
+      "post": {
+        "operationId": "token-holders",
+        "summary": "Get token holders with balances and identity information for a specific token.",
+        "tags": [
+          "Zapper Tools"
+        ],
+        "x-payment-info": {
+          "pricingMode": "fixed",
+          "price": "0.001125",
+          "protocols": [
+            "x402",
+            "mpp"
+          ]
+        },
+        "extensions": {
+          "bazaar": {
+            "info": {
+              "input": {
+                "type": "http",
+                "method": "POST",
+                "bodyType": "json",
+                "body": {
+                  "address": "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913",
+                  "chainId": 8453,
+                  "first": 10
+                }
+              }
+            },
+            "schema": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "type": "object",
+              "properties": {
+                "input": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "const": "http"
+                    },
+                    "method": {
+                      "type": "string",
+                      "enum": [
+                        "POST",
+                        "PUT",
+                        "PATCH"
+                      ]
+                    },
+                    "bodyType": {
+                      "type": "string",
+                      "enum": [
+                        "json",
+                        "form-data",
+                        "text"
+                      ]
+                    },
+                    "body": {
+                      "type": "object",
+                      "properties": {
+                        "address": {
+                          "type": "string",
+                          "description": "Token contract address (0x...)"
+                        },
+                        "chainId": {
+                          "type": "integer",
+                          "description": "Chain ID of the network (e.g. 1 for Ethereum, 8453 for Base)"
+                        },
+                        "first": {
+                          "type": "number",
+                          "description": "Number of holders to return"
+                        },
+                        "after": {
+                          "type": "string",
+                          "description": "Cursor for pagination"
+                        }
+                      },
+                      "required": [
+                        "address",
+                        "chainId",
+                        "first"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "bodyType",
+                    "body",
+                    "method"
+                  ],
+                  "additionalProperties": false
+                },
+                "output": {
+                  "type": "object",
+                  "properties": {
+                    "example": {
+                      "data": {
+                        "fungibleTokenV2": {
+                          "type": "object",
+                          "properties": {
+                            "address": {
+                              "type": "string"
+                            },
+                            "symbol": {
+                              "type": "string"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "decimals": {
+                              "type": "integer"
+                            },
+                            "imageUrlV2": {
+                              "type": "string"
+                            },
+                            "holders": {
+                              "type": "object",
+                              "properties": {
+                                "edges": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "node": {
+                                        "type": "object",
+                                        "properties": {
+                                          "holderAddress": {
+                                            "type": "string"
+                                          },
+                                          "percentileShare": {
+                                            "type": "number"
+                                          },
+                                          "value": {
+                                            "type": "number"
+                                          },
+                                          "account": {
+                                            "type": "object",
+                                            "properties": {
+                                              "displayName": {
+                                                "type": "object"
+                                              },
+                                              "farcasterProfile": {
+                                                "type": "object"
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "required": [
+                "input"
+              ]
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "address": {
+                    "type": "string",
+                    "description": "Token contract address (0x...)"
+                  },
+                  "chainId": {
+                    "type": "integer",
+                    "description": "Chain ID of the network (e.g. 1 for Ethereum, 8453 for Base)"
+                  },
+                  "first": {
+                    "type": "number",
+                    "description": "Number of holders to return"
+                  },
+                  "after": {
+                    "type": "string",
+                    "description": "Cursor for pagination"
+                  }
+                },
+                "required": [
+                  "address",
+                  "chainId",
+                  "first"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          },
+          "402": {
+            "description": "Payment Required"
+          }
+        }
+      }
+    },
+    "/x402/token-ranking": {
+      "post": {
+        "operationId": "token-ranking",
+        "summary": "Get a ranked list of tokens based on swap activity and velocity of adoption, optionally tailored for a farcaster user.",
+        "tags": [
+          "Zapper Tools"
+        ],
+        "x-payment-info": {
+          "pricingMode": "fixed",
+          "price": "0.004500",
+          "protocols": [
+            "x402",
+            "mpp"
+          ]
+        },
+        "extensions": {
+          "bazaar": {
+            "info": {
+              "input": {
+                "type": "http",
+                "method": "POST",
+                "bodyType": "json",
+                "body": {
+                  "first": 10
+                }
+              }
+            },
+            "schema": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "type": "object",
+              "properties": {
+                "input": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "const": "http"
+                    },
+                    "method": {
+                      "type": "string",
+                      "enum": [
+                        "POST",
+                        "PUT",
+                        "PATCH"
+                      ]
+                    },
+                    "bodyType": {
+                      "type": "string",
+                      "enum": [
+                        "json",
+                        "form-data",
+                        "text"
+                      ]
+                    },
+                    "body": {
+                      "type": "object",
+                      "properties": {
+                        "first": {
+                          "type": "integer",
+                          "default": 10,
+                          "description": "Number of items to return (pagination limit)"
+                        },
+                        "after": {
+                          "type": "string",
+                          "description": "Cursor for pagination (get results after this cursor)"
+                        },
+                        "fid": {
+                          "type": "integer",
+                          "description": "Optional Farcaster ID (FID) to personalize ranking"
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "bodyType",
+                    "body",
+                    "method"
+                  ],
+                  "additionalProperties": false
+                },
+                "output": {
+                  "type": "object",
+                  "properties": {
+                    "example": {
+                      "data": {
+                        "tokenRanking": {
+                          "type": "object",
+                          "properties": {
+                            "pageInfo": {
+                              "type": "object",
+                              "properties": {
+                                "hasNextPage": {
+                                  "type": "boolean"
+                                },
+                                "endCursor": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "edges": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "cursor": {
+                                    "type": "string"
+                                  },
+                                  "node": {
+                                    "type": "object",
+                                    "properties": {
+                                      "id": {
+                                        "type": "string"
+                                      },
+                                      "chainId": {
+                                        "type": "integer"
+                                      },
+                                      "tokenAddress": {
+                                        "type": "string"
+                                      },
+                                      "buyCount": {
+                                        "type": "integer"
+                                      },
+                                      "buyerCount": {
+                                        "type": "integer"
+                                      },
+                                      "buyerCount24h": {
+                                        "type": "integer"
+                                      },
+                                      "token": {
+                                        "type": "object",
+                                        "properties": {
+                                          "address": {
+                                            "type": "string"
+                                          },
+                                          "name": {
+                                            "type": "string"
+                                          },
+                                          "symbol": {
+                                            "type": "string"
+                                          },
+                                          "imageUrlV2": {
+                                            "type": "string"
+                                          },
+                                          "priceData": {
+                                            "type": "object",
+                                            "properties": {
+                                              "price": {
+                                                "type": "number"
+                                              },
+                                              "priceChange5m": {
+                                                "type": "number"
+                                              },
+                                              "priceChange1h": {
+                                                "type": "number"
+                                              },
+                                              "priceChange24h": {
+                                                "type": "number"
+                                              },
+                                              "totalLiquidity": {
+                                                "type": "number"
+                                              },
+                                              "volume24h": {
+                                                "type": "number"
+                                              },
+                                              "marketCap": {
+                                                "type": "number"
+                                              },
+                                              "latestSwaps": {
+                                                "type": "object",
+                                                "properties": {
+                                                  "edges": {
+                                                    "type": "array",
+                                                    "items": {
+                                                      "type": "object",
+                                                      "properties": {
+                                                        "node": {
+                                                          "type": "object",
+                                                          "properties": {
+                                                            "boughtAmount": {
+                                                              "type": "string"
+                                                            },
+                                                            "boughtTokenAddress": {
+                                                              "type": "string"
+                                                            },
+                                                            "from": {
+                                                              "type": "object",
+                                                              "properties": {
+                                                                "address": {
+                                                                  "type": "string"
+                                                                },
+                                                                "ensRecord": {
+                                                                  "type": "object",
+                                                                  "properties": {
+                                                                    "name": {
+                                                                      "type": "string"
+                                                                    }
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              },
+                                              "latestFarcasterSwaps": {
+                                                "type": "object",
+                                                "properties": {
+                                                  "edges": {
+                                                    "type": "array",
+                                                    "items": {
+                                                      "type": "object",
+                                                      "properties": {
+                                                        "node": {
+                                                          "type": "object",
+                                                          "properties": {
+                                                            "amount": {
+                                                              "type": "number"
+                                                            },
+                                                            "tokenAddress": {
+                                                              "type": "string"
+                                                            },
+                                                            "volumeUsd": {
+                                                              "type": "number"
+                                                            },
+                                                            "profile": {
+                                                              "type": "object",
+                                                              "properties": {
+                                                                "username": {
+                                                                  "type": "string"
+                                                                }
+                                                              }
+                                                            }
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "required": [
+                "input"
+              ]
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "first": {
+                    "type": "integer",
+                    "default": 10,
+                    "description": "Number of items to return (pagination limit)"
+                  },
+                  "after": {
+                    "type": "string",
+                    "description": "Cursor for pagination (get results after this cursor)"
+                  },
+                  "fid": {
+                    "type": "integer",
+                    "description": "Optional Farcaster ID (FID) to personalize ranking"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          },
+          "402": {
+            "description": "Payment Required"
+          }
+        }
+      }
+    },
+    "/x402/nft-ranking": {
+      "post": {
+        "operationId": "nft-ranking",
+        "summary": "Get a ranked list of NFT collections based on rading activity and collection popularity, optionally tailored for a farcaster user.",
+        "tags": [
+          "Zapper Tools"
+        ],
+        "x-payment-info": {
+          "pricingMode": "fixed",
+          "price": "0.004500",
+          "protocols": [
+            "x402",
+            "mpp"
+          ]
+        },
+        "extensions": {
+          "bazaar": {
+            "info": {
+              "input": {
+                "type": "http",
+                "method": "POST",
+                "bodyType": "json",
+                "body": {
+                  "first": 10
+                }
+              }
+            },
+            "schema": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "type": "object",
+              "properties": {
+                "input": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "const": "http"
+                    },
+                    "method": {
+                      "type": "string",
+                      "enum": [
+                        "POST",
+                        "PUT",
+                        "PATCH"
+                      ]
+                    },
+                    "bodyType": {
+                      "type": "string",
+                      "enum": [
+                        "json",
+                        "form-data",
+                        "text"
+                      ]
+                    },
+                    "body": {
+                      "type": "object",
+                      "properties": {
+                        "first": {
+                          "type": "integer",
+                          "default": 10,
+                          "description": "Number of items to return (pagination limit)"
+                        },
+                        "after": {
+                          "type": "string",
+                          "description": "Cursor for pagination (get results after this cursor)"
+                        },
+                        "fid": {
+                          "type": "integer",
+                          "description": "Optional Farcaster ID (FID) to personalize ranking"
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "bodyType",
+                    "body",
+                    "method"
+                  ],
+                  "additionalProperties": false
+                },
+                "output": {
+                  "type": "object",
+                  "properties": {
+                    "example": {
+                      "data": {
+                        "nftRanking": {
+                          "type": "object",
+                          "properties": {
+                            "pageInfo": {
+                              "type": "object",
+                              "properties": {
+                                "hasNextPage": {
+                                  "type": "boolean"
+                                },
+                                "endCursor": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "edges": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "cursor": {
+                                    "type": "string"
+                                  },
+                                  "node": {
+                                    "type": "object",
+                                    "properties": {
+                                      "id": {
+                                        "type": "string"
+                                      },
+                                      "chainId": {
+                                        "type": "integer"
+                                      },
+                                      "collectionAddress": {
+                                        "type": "string"
+                                      },
+                                      "collection": {
+                                        "type": "object",
+                                        "properties": {
+                                          "name": {
+                                            "type": "string"
+                                          },
+                                          "description": {
+                                            "type": "string"
+                                          },
+                                          "floorPrice": {
+                                            "type": "object",
+                                            "properties": {
+                                              "valueUsd": {
+                                                "type": "number"
+                                              }
+                                            }
+                                          },
+                                          "networkV2": {
+                                            "type": "object",
+                                            "properties": {
+                                              "name": {
+                                                "type": "string"
+                                              },
+                                              "chainId": {
+                                                "type": "integer"
+                                              }
+                                            }
+                                          },
+                                          "topOfferPrice": {
+                                            "type": "object",
+                                            "properties": {
+                                              "valueUsd": {
+                                                "type": "number"
+                                              }
+                                            }
+                                          },
+                                          "stats": {
+                                            "type": "object",
+                                            "properties": {
+                                              "dailyVolume": {
+                                                "type": "object",
+                                                "properties": {
+                                                  "valueUsd": {
+                                                    "type": "number"
+                                                  }
+                                                }
+                                              },
+                                              "hourlyVolume": {
+                                                "type": "object",
+                                                "properties": {
+                                                  "valueUsd": {
+                                                    "type": "number"
+                                                  }
+                                                }
+                                              },
+                                              "monthlyVolume": {
+                                                "type": "object",
+                                                "properties": {
+                                                  "valueUsd": {
+                                                    "type": "number"
+                                                  }
+                                                }
+                                              },
+                                              "totalVolume": {
+                                                "type": "object",
+                                                "properties": {
+                                                  "valueUsd": {
+                                                    "type": "number"
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          },
+                                          "medias": {
+                                            "type": "object",
+                                            "properties": {
+                                              "logo": {
+                                                "type": "object",
+                                                "properties": {
+                                                  "original": {
+                                                    "type": "string"
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "required": [
+                "input"
+              ]
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "first": {
+                    "type": "integer",
+                    "default": 10,
+                    "description": "Number of items to return (pagination limit)"
+                  },
+                  "after": {
+                    "type": "string",
+                    "description": "Cursor for pagination (get results after this cursor)"
+                  },
+                  "fid": {
+                    "type": "integer",
+                    "description": "Optional Farcaster ID (FID) to personalize ranking"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          },
+          "402": {
+            "description": "Payment Required"
+          }
+        }
+      }
+    },
+    "/x402/account-identity": {
+      "post": {
+        "operationId": "account-identity",
+        "summary": "Get social identity (ENS, Farcaster, Lens, Basenames) for a specific address.",
+        "tags": [
+          "Zapper Tools"
+        ],
+        "x-payment-info": {
+          "pricingMode": "fixed",
+          "price": "0.001125",
+          "protocols": [
+            "x402",
+            "mpp"
+          ]
+        },
+        "extensions": {
+          "bazaar": {
+            "info": {
+              "input": {
+                "type": "http",
+                "method": "POST",
+                "bodyType": "json",
+                "body": {
+                  "address": "0xd8da6bf26964af9d7eed9e03e53415d37aa96045"
+                }
+              }
+            },
+            "schema": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "type": "object",
+              "properties": {
+                "input": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "const": "http"
+                    },
+                    "method": {
+                      "type": "string",
+                      "enum": [
+                        "POST",
+                        "PUT",
+                        "PATCH"
+                      ]
+                    },
+                    "bodyType": {
+                      "type": "string",
+                      "enum": [
+                        "json",
+                        "form-data",
+                        "text"
+                      ]
+                    },
+                    "body": {
+                      "type": "object",
+                      "properties": {
+                        "address": {
+                          "type": "string",
+                          "description": "The 0x wallet address to resolve identity for"
+                        }
+                      },
+                      "required": [
+                        "address"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "bodyType",
+                    "body",
+                    "method"
+                  ],
+                  "additionalProperties": false
+                },
+                "output": {
+                  "type": "object",
+                  "properties": {
+                    "example": {
+                      "data": {
+                        "account": {
+                          "type": "object",
+                          "properties": {
+                            "displayName": {
+                              "type": "object",
+                              "properties": {
+                                "source": {
+                                  "type": "string"
+                                },
+                                "value": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "description": {
+                              "type": "object",
+                              "properties": {
+                                "source": {
+                                  "type": "string"
+                                },
+                                "value": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "ensRecord": {
+                              "type": "object",
+                              "properties": {
+                                "name": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "basename": {
+                              "type": "string"
+                            },
+                            "farcasterProfile": {
+                              "type": "object",
+                              "properties": {
+                                "username": {
+                                  "type": "string"
+                                },
+                                "fid": {
+                                  "type": "integer"
+                                }
+                              }
+                            },
+                            "lensProfile": {
+                              "type": "object",
+                              "properties": {
+                                "handle": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "required": [
+                "input"
+              ]
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "address": {
+                    "type": "string",
+                    "description": "The 0x wallet address to resolve identity for"
+                  }
+                },
+                "required": [
+                  "address"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          },
+          "402": {
+            "description": "Payment Required"
+          }
+        }
+      }
+    },
+    "/x402/general-swap-feed": {
+      "post": {
+        "operationId": "general-swap-feed",
+        "summary": "Get a real-time feed of swap activity across Farcaster, including token trades, volume, and social context.",
+        "tags": [
+          "Zapper Tools"
+        ],
+        "x-payment-info": {
+          "pricingMode": "fixed",
+          "price": "0.003750",
+          "protocols": [
+            "x402",
+            "mpp"
+          ]
+        },
+        "extensions": {
+          "bazaar": {
+            "info": {
+              "input": {
+                "type": "http",
+                "method": "POST",
+                "bodyType": "json",
+                "body": {}
+              }
+            },
+            "schema": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "type": "object",
+              "properties": {
+                "input": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "const": "http"
+                    },
+                    "method": {
+                      "type": "string",
+                      "enum": [
+                        "POST",
+                        "PUT",
+                        "PATCH"
+                      ]
+                    },
+                    "bodyType": {
+                      "type": "string",
+                      "enum": [
+                        "json",
+                        "form-data",
+                        "text"
+                      ]
+                    },
+                    "body": {
+                      "type": "object",
+                      "properties": {}
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "bodyType",
+                    "body",
+                    "method"
+                  ],
+                  "additionalProperties": false
+                },
+                "output": {
+                  "type": "object",
+                  "properties": {
+                    "example": {
+                      "data": {
+                        "generalSwapFeed": {
+                          "type": "object",
+                          "properties": {
+                            "pageInfo": {
+                              "type": "object",
+                              "properties": {
+                                "hasPreviousPage": {
+                                  "type": "boolean"
+                                },
+                                "hasNextPage": {
+                                  "type": "boolean"
+                                },
+                                "startCursor": {
+                                  "type": "string"
+                                },
+                                "endCursor": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "edges": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "cursor": {
+                                    "type": "string"
+                                  },
+                                  "node": {
+                                    "type": "object",
+                                    "properties": {
+                                      "id": {
+                                        "type": "string"
+                                      },
+                                      "type": {
+                                        "type": "string"
+                                      },
+                                      "swap": {
+                                        "type": "object",
+                                        "properties": {
+                                          "amount": {
+                                            "type": "number"
+                                          },
+                                          "chainId": {
+                                            "type": "integer"
+                                          },
+                                          "fid": {
+                                            "type": "integer"
+                                          },
+                                          "id": {
+                                            "type": "string"
+                                          },
+                                          "isBuy": {
+                                            "type": "boolean"
+                                          },
+                                          "parentUrl": {
+                                            "type": "string"
+                                          },
+                                          "timestamp": {
+                                            "type": "string"
+                                          },
+                                          "transactionHash": {
+                                            "type": "string"
+                                          },
+                                          "volumeUsd": {
+                                            "type": "number"
+                                          },
+                                          "network": {
+                                            "type": "object",
+                                            "properties": {
+                                              "chainId": {
+                                                "type": "integer"
+                                              }
+                                            }
+                                          },
+                                          "farcasterContext": {
+                                            "type": "object",
+                                            "properties": {
+                                              "likeCount": {
+                                                "type": "integer"
+                                              }
+                                            }
+                                          },
+                                          "profile": {
+                                            "type": "object",
+                                            "properties": {
+                                              "fid": {
+                                                "type": "integer"
+                                              }
+                                            }
+                                          },
+                                          "token": {
+                                            "type": "object",
+                                            "properties": {
+                                              "address": {
+                                                "type": "string"
+                                              },
+                                              "symbol": {
+                                                "type": "string"
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "required": [
+                "input"
+              ]
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          },
+          "402": {
+            "description": "Payment Required"
+          }
+        }
+      }
+    },
+    "/x402/token-activity-feed": {
+      "post": {
+        "operationId": "token-activity-feed",
+        "summary": "Get a combined activity feed for a specific token, including swaps and top Farcaster casts, personalized for a given user.",
+        "tags": [
+          "Zapper Tools"
+        ],
+        "x-payment-info": {
+          "pricingMode": "fixed",
+          "price": "0.003750",
+          "protocols": [
+            "x402",
+            "mpp"
+          ]
+        },
+        "extensions": {
+          "bazaar": {
+            "info": {
+              "input": {
+                "type": "http",
+                "method": "POST",
+                "bodyType": "json",
+                "body": {
+                  "chainId": 8453,
+                  "tokenAddress": "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913"
+                }
+              }
+            },
+            "schema": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "type": "object",
+              "properties": {
+                "input": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "const": "http"
+                    },
+                    "method": {
+                      "type": "string",
+                      "enum": [
+                        "POST",
+                        "PUT",
+                        "PATCH"
+                      ]
+                    },
+                    "bodyType": {
+                      "type": "string",
+                      "enum": [
+                        "json",
+                        "form-data",
+                        "text"
+                      ]
+                    },
+                    "body": {
+                      "type": "object",
+                      "properties": {
+                        "chainId": {
+                          "type": "integer",
+                          "description": "Chain ID of the token (e.g. 8453 for Base)"
+                        },
+                        "tokenAddress": {
+                          "type": "string",
+                          "description": "Contract address of the token"
+                        },
+                        "fid": {
+                          "type": "integer",
+                          "description": "Optional Farcaster ID (FID) to personalize the feed"
+                        },
+                        "type": {
+                          "type": "string",
+                          "description": "Feed type (e.g. DEFAULT)"
+                        },
+                        "filters": {
+                          "type": "object",
+                          "description": "Optional filters such as minimumUsdVolume",
+                          "properties": {
+                            "minimumUsdVolume": {
+                              "type": "number",
+                              "description": "Minimum USD volume threshold for swaps"
+                            }
+                          }
+                        }
+                      },
+                      "required": [
+                        "chainId",
+                        "tokenAddress"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "bodyType",
+                    "body",
+                    "method"
+                  ],
+                  "additionalProperties": false
+                },
+                "output": {
+                  "type": "object",
+                  "properties": {
+                    "example": {
+                      "data": {
+                        "tokenActivityFeed": {
+                          "type": "object",
+                          "properties": {
+                            "pageInfo": {
+                              "type": "object",
+                              "properties": {
+                                "hasPreviousPage": {
+                                  "type": "boolean"
+                                },
+                                "hasNextPage": {
+                                  "type": "boolean"
+                                },
+                                "startCursor": {
+                                  "type": "string"
+                                },
+                                "endCursor": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "edges": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "cursor": {
+                                    "type": "string"
+                                  },
+                                  "node": {
+                                    "type": "object",
+                                    "description": "Either a ChannelFeedSwap or FarcasterTopCast",
+                                    "properties": {
+                                      "id": {
+                                        "type": "string"
+                                      },
+                                      "fid": {
+                                        "type": "integer"
+                                      },
+                                      "transactionHash": {
+                                        "type": "string"
+                                      },
+                                      "timestamp": {
+                                        "type": "string"
+                                      },
+                                      "chainId": {
+                                        "type": "integer"
+                                      },
+                                      "volumeUsd": {
+                                        "type": "number"
+                                      },
+                                      "amount": {
+                                        "type": "number"
+                                      },
+                                      "isBuy": {
+                                        "type": "boolean"
+                                      },
+                                      "hash": {
+                                        "type": "string"
+                                      },
+                                      "text": {
+                                        "type": "string"
+                                      },
+                                      "authorFid": {
+                                        "type": "integer"
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "required": [
+                "input"
+              ]
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "chainId": {
+                    "type": "integer",
+                    "description": "Chain ID of the token (e.g. 8453 for Base)"
+                  },
+                  "tokenAddress": {
+                    "type": "string",
+                    "description": "Contract address of the token"
+                  },
+                  "fid": {
+                    "type": "integer",
+                    "description": "Optional Farcaster ID (FID) to personalize the feed"
+                  },
+                  "type": {
+                    "type": "string",
+                    "description": "Feed type (e.g. DEFAULT)"
+                  },
+                  "filters": {
+                    "type": "object",
+                    "description": "Optional filters such as minimumUsdVolume",
+                    "properties": {
+                      "minimumUsdVolume": {
+                        "type": "number",
+                        "description": "Minimum USD volume threshold for swaps"
+                      }
+                    }
+                  }
+                },
+                "required": [
+                  "chainId",
+                  "tokenAddress"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          },
+          "402": {
+            "description": "Payment Required"
+          }
+        }
+      }
+    }
+  }
+}
