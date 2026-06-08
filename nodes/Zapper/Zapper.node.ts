@@ -5,7 +5,7 @@ export class Zapper implements INodeType {
 	description: INodeTypeDescription = {
 		displayName: 'zapper',
 		name: 'N8nDevZapper',
-		icon: { light: 'file:./zapper.svg', dark: 'file:./zapper.dark.svg' },
+		icon: { light: 'file:./zapper.png', dark: 'file:./zapper.dark.png' },
 		group: ['input'],
 		version: 1,
 		subtitle: '={{\$parameter["operation"] + ": " + \$parameter["resource"]}}',

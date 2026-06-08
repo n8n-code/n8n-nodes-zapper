@@ -10,7 +10,7 @@ export class ZapperApi implements ICredentialType {
 
 	displayName = 'zapper API';
 
-	icon: Icon = { light: 'file:../nodes/Zapper/zapper.svg', dark: 'file:../nodes/Zapper/zapper.dark.svg' };
+	icon: Icon = { light: 'file:../nodes/Zapper/zapper.png', dark: 'file:../nodes/Zapper/zapper.dark.png' };
 
 	documentationUrl = '';
 
