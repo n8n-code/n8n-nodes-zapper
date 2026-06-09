@@ -53,9 +53,28 @@ That's it. No configuration files. No code. It just works.
 
 ## Resources
 
-| Resource | Operations |
-|----------|------------|
-| Zapper Tools | POST Get real-time token price and market cap, POST Search for ERC20 tokens, NFTs, Users, Apps, or Gas Tokens., POST Get detailed metadata, traits, media, and holder info for a specific NFT, POST Get NFT collection data including market stats, holders, events, and a sample of NFTs., POST Get aggregated portfolio totals (Tokens, Apps, NFTs) broken down by network for a single address, or a list of addresses., POST Get detailed token balances for a single address, or a list of addresses, optionally filtering by chain., POST Get DeFi balances (Liquidity Pools, Yield Farming, Lending, etc.) for a single address, or a list of addresses., POST Get individual NFT balances and estimated values for a single address, or a list of addresses., POST Get the price of a token at a specific point in time., POST Get human-readable interpretation, metadata, and balance changes for a specific transaction., POST Get transaction history with interpretations and metadata for a single address, or a list of addresses., POST Get token holders with balances and identity information for a specific token., POST Get a ranked list of tokens based on swap activity and velocity of adoption, optionally tailored for a farcaster user., POST Get a ranked list of NFT collections based on rading activity and collection popularity, optionally tailored for a farcaster user., POST Get social identity (ENS, Farcaster, Lens, Basenames) for a specific address., POST Get a real-time feed of swap activity across Farcaster, including token trades, volume, and social context., POST Get a combined activity feed for a specific token, including swaps and top Farcaster casts, personalized for a given user. |
+<details>
+<summary><b>Zapper Tools</b> (17 operations)</summary>
+
+- Post Get real time token price and market cap
+- Post Search for ERC20 tokens NFTs Users Apps or Gas Tokens
+- Post Get detailed metadata traits media and holder info for a specific NFT
+- Post Get NFT collection data including market stats holders events and a sample of NFTs
+- Post Get aggregated portfolio totals Tokens Apps NFTs broken down by network for a single address or a list of addresses
+- Post Get detailed token balances for a single address or a list of addresses optionally filtering by chain
+- Post Get DeFi balances Liquidity Pools Yield Farming Lending etc for a single address or a list of addresses
+- Post Get individual NFT balances and estimated values for a single address or a list of addresses
+- Post Get the price of a token at a specific point in time
+- Post Get human readable interpretation metadata and balance changes for a specific transaction
+- Post Get transaction history with interpretations and metadata for a single address or a list of addresses
+- Post Get token holders with balances and identity information for a specific token
+- Post Get a ranked list of tokens based on swap activity and velocity of adoption optionally tailored for a farcaster user
+- Post Get a ranked list of NFT collections based on rading activity and collection popularity optionally tailored for a farcaster user
+- Post Get social identity ENS Farcaster Lens Basenames for a specific address
+- Post Get a real time feed of swap activity across Farcaster including token trades volume and social context
+- Post Get a combined activity feed for a specific token including swaps and top Farcaster casts personalized for a given user
+
+</details>
 
 ---
 

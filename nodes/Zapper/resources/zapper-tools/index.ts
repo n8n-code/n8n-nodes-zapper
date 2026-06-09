@@ -268,7 +268,7 @@ export const zapperToolsDescription: INodeProperties[] = [
 		},
 		{
 			"required": true,
-			"displayName": "Chain Id",
+			"displayName": "Chain ID",
 			"name": "chainId",
 			"type": "number",
 			"default": 0,
@@ -459,7 +459,7 @@ export const zapperToolsDescription: INodeProperties[] = [
 		},
 		{
 			"required": true,
-			"displayName": "Chain Id",
+			"displayName": "Chain ID",
 			"name": "chainId",
 			"type": "number",
 			"default": 0,
@@ -485,7 +485,7 @@ export const zapperToolsDescription: INodeProperties[] = [
 		},
 		{
 			"required": true,
-			"displayName": "Token Id",
+			"displayName": "Token ID",
 			"name": "tokenId",
 			"type": "string",
 			"default": "",
@@ -981,7 +981,7 @@ export const zapperToolsDescription: INodeProperties[] = [
 		},
 		{
 			"required": true,
-			"displayName": "Chain Id",
+			"displayName": "Chain ID",
 			"name": "chainId",
 			"type": "number",
 			"default": 0,
@@ -1103,7 +1103,7 @@ export const zapperToolsDescription: INodeProperties[] = [
 		},
 		{
 			"required": true,
-			"displayName": "Chain Id",
+			"displayName": "Chain ID",
 			"name": "chainId",
 			"type": "number",
 			"default": 0,
@@ -1319,7 +1319,7 @@ export const zapperToolsDescription: INodeProperties[] = [
 		},
 		{
 			"required": true,
-			"displayName": "Chain Id",
+			"displayName": "Chain ID",
 			"name": "chainId",
 			"type": "number",
 			"default": 0,
@@ -1667,7 +1667,7 @@ export const zapperToolsDescription: INodeProperties[] = [
 		},
 		{
 			"required": true,
-			"displayName": "Chain Id",
+			"displayName": "Chain ID",
 			"name": "chainId",
 			"type": "number",
 			"default": 0,

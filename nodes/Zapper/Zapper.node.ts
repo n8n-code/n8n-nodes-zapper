@@ -3,14 +3,14 @@ import { zapperToolsDescription } from './resources/zapper-tools';
 
 export class Zapper implements INodeType {
 	description: INodeTypeDescription = {
-		displayName: 'zapper',
+		displayName: 'Zapper',
 		name: 'N8nDevZapper',
 		icon: { light: 'file:./zapper.png', dark: 'file:./zapper.dark.png' },
 		group: ['input'],
 		version: 1,
 		subtitle: '={{\$parameter["operation"] + ": " + \$parameter["resource"]}}',
-		description: 'Zapper blockchain portfolio tracker and DeFi dashboard for managing assets across 60+ chains with real-time prices',
-		defaults: { name: 'zapper' },
+		description: 'Zapper DeFi dashboard tracks blockchain portfolios across 60+ chains with real-time prices.',
+		defaults: { name: 'Zapper' },
 		usableAsTool: true,
 		inputs: [NodeConnectionTypes.Main],
 		outputs: [NodeConnectionTypes.Main],

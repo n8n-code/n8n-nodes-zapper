@@ -8,7 +8,7 @@ import type {
 export class ZapperApi implements ICredentialType {
 	name = 'N8nDevZapperApi';
 
-	displayName = 'zapper API';
+	displayName = 'Zapper API';
 
 	icon: Icon = { light: 'file:../nodes/Zapper/zapper.png', dark: 'file:../nodes/Zapper/zapper.dark.png' };
 
@@ -22,7 +22,7 @@ export class ZapperApi implements ICredentialType {
 			default: '',
 			required: true,
 			placeholder: 'https://api.example.com',
-			description: 'The base URL of your zapper API server',
+			description: 'The base URL of your Zapper API server',
 		},
 		{
 			displayName: 'API Key',
